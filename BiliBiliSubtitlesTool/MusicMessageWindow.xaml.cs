@@ -1,5 +1,6 @@
 ﻿using NLog;
 using System;
+using System.CommandLine;
 using System.Text;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -24,9 +25,10 @@ namespace BiliBiliSubtitlesTool
 
         public MusicMessageWindow()
         {
-            InitializeComponent();
+            Log.Logger.SetLogger(Environment.GetCommandLineArgs());
+            InitializeComponent();          
         }
-
+        
         private void SearchMusicButton_Click(object sender, RoutedEventArgs e)
         {
             if (SongIdText.Text == string.Empty)
@@ -155,6 +157,11 @@ namespace BiliBiliSubtitlesTool
         {
             Regex re = new Regex("[^0-9]+");
             e.Handled = re.IsMatch(e.Text);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            _logger.Trace("123");
         }
     }
 }

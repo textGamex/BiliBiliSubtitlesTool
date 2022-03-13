@@ -26,6 +26,7 @@
         </ComboBox>
         <TextBox x:Name="SongsListText" HorizontalAlignment="Left" Margin="782,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="134" Height="428" FontSize="13"/>
         <Label Content="列表" HorizontalAlignment="Left" Margin="828,68,0,0" VerticalAlignment="Top" Width="42" FontSize="14"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="102,250,0,0" VerticalAlignment="Top" Click="Button_Click"/>
 
     </Grid>
 </Window>
