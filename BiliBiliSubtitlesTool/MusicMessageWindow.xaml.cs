@@ -158,10 +158,5 @@ namespace BiliBiliSubtitlesTool
             Regex re = new Regex("[^0-9]+");
             e.Handled = re.IsMatch(e.Text);
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            _logger.Trace("123");
-        }
     }
 }

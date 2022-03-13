@@ -17,4 +17,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BiliBiliSubtitlesTool\BiliBiliSubtitlesTool.csproj" />
+  </ItemGroup>
+
 </Project>

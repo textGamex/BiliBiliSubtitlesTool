@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="音乐获取" Height="650" Width="950">
     <Grid>
-        <Button x:Name="SearchMusicButton" Content="确定" HorizontalAlignment="Left" Margin="156,56,0,0" VerticalAlignment="Top" Width="48" Click="SearchMusicButton_Click" Height="25"/>
+        <Button x:Name="SearchMusicButton" Content="确定" HorizontalAlignment="Left" Margin="177,56,0,0" VerticalAlignment="Top" Width="48" Click="SearchMusicButton_Click" Height="25"/>
         <TextBox x:Name="SongIdText" HorizontalAlignment="Left" Margin="102,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" 
                    InputMethod.IsInputMethodEnabled="False" MaxLength="19" Height="23" FontSize="13"/>
         <TextBox x:Name="LyricsOutputBlock" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="510" Height="315"
@@ -26,7 +26,6 @@
         </ComboBox>
         <TextBox x:Name="SongsListText" HorizontalAlignment="Left" Margin="782,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="134" Height="428" FontSize="13"/>
         <Label Content="列表" HorizontalAlignment="Left" Margin="828,68,0,0" VerticalAlignment="Top" Width="42" FontSize="14"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="102,250,0,0" VerticalAlignment="Top" Click="Button_Click"/>
 
     </Grid>
 </Window>
