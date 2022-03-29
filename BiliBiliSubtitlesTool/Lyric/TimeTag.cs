@@ -172,6 +172,12 @@ namespace BiliBiliSubtitlesTool.Lyric
             return new TimeTag(newMinute, newSecond, newMillisecond);
         }
 
+        /// <summary>
+        /// 返回this减去<c>time</c>的值
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public TimeTag SubtractTimeTag(in TimeTag time)
         {
             if (time > this)
