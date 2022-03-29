@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Collections.Generic;
 
-namespace Lyrics
+namespace BiliBiliSubtitlesTool.Lyric
 {
     /// <summary>
     /// LRC文件中的时间标签
     /// </summary>
-    public struct TimeTag : IComparable<TimeTag>, IComparer<TimeTag>
+    public readonly struct TimeTag : IComparable<TimeTag>, IComparer<TimeTag>
     {
         public readonly static TimeTag Zero = new TimeTag(0, 0, 0);
         /// <summary>
@@ -70,15 +71,8 @@ namespace Lyrics
         {
             if (line == null)
                 throw new ArgumentNullException(nameof(line));
-            //如果 [ 和 ] 没有同时出现在字符串中
-            if (!line.Contains("[") || !line.Contains("]"))
-                throw new FormatException("找不到[ 或 ]");
-            if (!line.Contains(":"))
-                throw new FormatException("找不到 ':' ");            
-            if (!line.Contains("."))
-                throw new FormatException("找不到 '.' ");
-            if (line.IndexOf('[') > line.IndexOf(']'))
-                throw new FormatException(" [ 不应该在 ] 后面");
+            if (!Regex.IsMatch(line, "\\[\\d{1,2}:\\d{1,2}\\.\\d{1,3}\\]"))
+                throw new FormatException();
             
             //去除歌词和[]
             string timeTag = line.Split(new char[] {'[', ']'})[1];
@@ -94,30 +88,32 @@ namespace Lyrics
             catch (FormatException)
             {
                 throw;
-            }            
+            }
             if (millisecondString.Length == 2)
                 _millisecond *= 10;
+            if (_minute > MINUTE_MAX || _second > SECOND_MAX || _millisecond > MILLISECOND_MAX)
+                throw new FormatException("时间超过最大值");
         }
 
-        /// <value>
+        /// <summary>
         /// 分钟
-        /// </value>
+        /// </summary>
         public uint Minute
         {
             get => _minute;
         }
 
-        /// <value>
+        /// <summary>
         /// 秒
-        /// </value>
+        /// </summary>
         public uint Second
         {
             get => _second;
         }
 
-        /// <value>
+        /// <summary>
         /// 毫秒
-        /// </value>
+        /// </summary>
         public uint Millisecond
         {
             get => _millisecond;
@@ -258,15 +254,8 @@ namespace Lyrics
         }
 
         public static bool operator >(in TimeTag left, in TimeTag right)
-        {            
-            if (left.CompareTo(right) > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+        {
+            return left.CompareTo(right) > 0;
         }
 
         public static bool operator <(in TimeTag left, in TimeTag right)
@@ -286,6 +275,11 @@ namespace Lyrics
         public static bool operator <=(in TimeTag left, in TimeTag right)
         {
             return !(left > right);
+        }
+
+        public static explicit operator TimeTag(string timeTag)
+        {
+            return new TimeTag(timeTag);
         }
         #endregion
     }
