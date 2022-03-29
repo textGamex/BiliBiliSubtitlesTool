@@ -156,8 +156,7 @@ namespace BiliBiliSubtitlesTool
 
         private void NumberOnly(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
-            Regex re = new Regex("[^0-9]+");
-            e.Handled = re.IsMatch(e.Text);
+            e.Handled = Regex.IsMatch(e.Text, "[^0-9]+");
         }
     }
 }
