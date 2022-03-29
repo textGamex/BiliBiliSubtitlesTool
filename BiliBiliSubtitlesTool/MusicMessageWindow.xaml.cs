@@ -1,6 +1,5 @@
 ﻿using NLog;
 using System;
-using System.CommandLine;
 using System.Text;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -19,6 +18,7 @@ namespace BiliBiliSubtitlesTool
         private const int LIST_SIZE = 8;
         private readonly List<Lyrics> _lyrics = new List<Lyrics>(LIST_SIZE);
         private readonly List<Detail> _detail = new List<Detail>(LIST_SIZE);
+        private long _tempSongId;
         private Lyrics _tempLyrics;
         private Detail _tempDetail;
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
@@ -49,6 +49,7 @@ namespace BiliBiliSubtitlesTool
                 MessageBox.Show("歌词未收录或歌曲不存在");
                 return;
             }
+            _tempSongId = songId;
             _tempDetail = CloudMusic.GetDetails(songId);
             _tempLyrics = lyricsInfo;
             SongNameText.Text = _tempDetail.SongName;
@@ -91,12 +92,12 @@ namespace BiliBiliSubtitlesTool
             return true;            
         }
 
-        private static string GetSingerName(System.Collections.Specialized.NameValueCollection authorInfos)
+        private string GetSingerName(System.Collections.Specialized.NameValueCollection authorInfos)
         {
             if (authorInfos == null)
             {
                 var ex = new ArgumentNullException(nameof(authorInfos));
-                _logger.Error(ex, "歌手信息集合为null");
+                _logger.Error(ex, "歌手信息集合为null, SongId={0}", _tempSongId);
                 throw ex;
             }
             if (authorInfos.Count == 0)
@@ -127,7 +128,7 @@ namespace BiliBiliSubtitlesTool
             SongsListText.Text = GetSongListText(_detail);
         }
 
-        private static string GetSongListText(IEnumerable<Detail> detailList)
+        private string GetSongListText(IEnumerable<Detail> detailList)
         {
             var sb = new StringBuilder();
             uint count = 0;
